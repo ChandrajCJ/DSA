@@ -42,3 +42,25 @@ var twoSum = function(nums, target) {
     }
     return null;
 };
+
+
+// 2. Recursion
+
+var recursiveCheck = function(hmap, i, numbers, target) {
+    const curr = numbers[i]
+    const expected = target - curr;
+    if(i > numbers.length)
+        return null;
+    if(hmap.has(expected)) {
+        return [hmap.get(expected), i]
+    }
+
+    hmap.set(curr, i)
+    return recursiveCheck(hmap, i+1, numbers, target)
+}
+
+var twoSumRecursive = function(numbers, target) {
+    const hmap = new Map()
+    return recursiveCheck(hmap, 0, numbers, target)
+};
+
