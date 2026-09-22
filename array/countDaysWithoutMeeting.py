@@ -47,6 +47,24 @@ meetings[i].length == 2
 
 class Solution:
     def countDays(self, days: int, meetings: List[List[int]]) -> int:
+        meetings.sort(key=lambda x: x[0])
+        print(meetings)
+        count = meetings[0][0]-1
+        prev_last = meetings[0][1]
+
+        for i in range(1, len(meetings)):
+            if(meetings[i][0] <= prev_last):
+                prev_last = max(prev_last, meetings[i][1])
+            else:
+                free_day = meetings[i][0] - prev_last - 1
+                count += free_day
+                prev_last = meetings[i][1]
+        count += days - prev_last
+        return count
+
+
+
+    def countDaysBrute(self, days: int, meetings: List[List[int]]) -> int:
         free_days = [i+1 for i in range(days)]
         # print("free_days", free_days)
         for row in meetings:
@@ -59,4 +77,6 @@ class Solution:
             if (i != 0):
                 count+=1
         return count
+        
+
 
